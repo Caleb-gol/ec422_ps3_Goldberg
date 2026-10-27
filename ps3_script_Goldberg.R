@@ -98,3 +98,13 @@ can_gas |>
     x = "Months", y = "Volume", color = NULL) +
   geom_point() + 
   geom_smooth()
+
+can_gas <- can_gas |> 
+  mutate("log_volume" = log(Volume))
+
+can_gas |>
+  autoplot(log_volume) +
+  labs(
+    title = "Canadian gas producution",
+    x = "Months", y = "Log Volume", color = NULL) +
+  theme_minimal()
