@@ -78,3 +78,23 @@ retail_ts |>
     x = NULL, y = "Millions of dollars", color = NULL
   ) +
   theme_minimal()
+
+can_gas |> autoplot(Volume)
+
+
+can_gas |>
+  autoplot(Volume) +
+  labs(
+       title = "Canadian gas producution",
+       x = "Months", y = "Volume", color = NULL) +
+  theme_minimal()
+             
+    can_gas_series   
+    
+can_gas |>
+  autoplot(Volume) +
+  labs(
+    title = "Canadian gas producution",
+    x = "Months", y = "Volume", color = NULL) +
+  geom_point() + 
+  geom_smooth()
