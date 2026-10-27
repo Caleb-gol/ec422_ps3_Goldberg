@@ -67,3 +67,14 @@ can_gas_q <- can_gas |>
 head(can_gas_q)
 
 can_gas_q |> autoplot(Volume)
+
+retail_ts |> autoplot(sales)
+
+retail_ts |>
+  autoplot(sales) +
+  labs(
+    title = "U.S. Retail and Food Services Sales",
+    subtitle = "Seasonally adjusted vs. not seasonally adjusted",
+    x = NULL, y = "Millions of dollars", color = NULL
+  ) +
+  theme_minimal()
