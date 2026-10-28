@@ -108,3 +108,21 @@ can_gas |>
     title = "Canadian gas producution",
     x = "Months", y = "Log Volume", color = NULL) +
   theme_minimal()
+
+retail_ts <- retail_ts |>
+  filter(series_id == "RSAFSNA") |>
+mutate("log_sales" = log(sales))
+
+retail_ts |>
+  autoplot(sales) +
+  labs(
+    title = "Retail sales",
+    x = "Months", y = "Sales", color = NULL) +
+  theme_minimal()
+
+retail_ts |>
+  autoplot(log_sales) +
+  labs(
+    title = "Retail Sales",
+    x = "Months", y = "Log sales", color = NULL) +
+  theme_minimal()
