@@ -126,3 +126,27 @@ retail_ts |>
     title = "Retail Sales",
     x = "Months", y = "Log sales", color = NULL) +
   theme_minimal()
+
+can_gas <- can_gas |>
+  mutate(
+    growth_direct = 100 * difference(Volume) / lag(Volume),
+    growth_logdiff = 100 * difference(log_volume)
+  )
+
+can_gas |>
+  autoplot(growth_direct) +
+  labs(
+    title = "Growth rate Percentage of Volume for Canadian Gas",
+    x = "Months", y = "Growth %", color = NULL) +
+  theme_minimal()
+
+can_gas <- can_gas |>
+  mutate(growth_gap = abs(growth_direct-growth_logdiff))
+ 
+can_gas |> 
+  autoplot(growth_gap) +
+  labs(
+    title = "Growth ",
+    x = "Months", y = "Growth % of gap", color = NULL) +
+  theme_minimal()
+  
