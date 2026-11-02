@@ -254,3 +254,17 @@ can_gas_fit |> gg_tsresiduals()
 can_gas_fit |>
   augment() |>
   features(.innov, ljung_box, lag = 24)
+
+gas_cv_fc <- can_gas |>
+  select(Month, Volume) |>
+  stretch_tsibble(.init = 240, .step = 1) |>
+  model(snaive = SNAIVE(Volume),
+        tslm   = TSLM(log(Volume) ~ trend() + season())) |>
+  forecast(h = 1)
+
+gas_cv_fc |>
+  accuracy(can_gas, measures = list(MAE = MAE, RMSE = RMSE))
+table(gas_cv_fc |>
+  accuracy(can_gas, measures = list(MAE = MAE, RMSE = RMSE)) |>
+  group_by(.model) |>
+  summarize(across(c(MAE, RMSE), mean)))
