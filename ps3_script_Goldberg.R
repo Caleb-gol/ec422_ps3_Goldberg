@@ -109,18 +109,18 @@ can_gas |>
     x = "Months", y = "Log Volume", color = NULL) +
   theme_minimal()
 
-retail_ts <- retail_ts |>
+retail_nsa <- retail_ts |>
   filter(series_id == "RSAFSNA") |>
 mutate("log_sales" = log(sales))
 
-retail_ts |>
+retail_nsa |>
   autoplot(sales) +
   labs(
     title = "Retail sales",
     x = "Months", y = "Sales", color = NULL) +
   theme_minimal()
 
-retail_ts |>
+retail_nsa |>
   autoplot(log_sales) +
   labs(
     title = "Retail Sales",
@@ -163,3 +163,26 @@ retail_ts |>
   ) +
   theme_minimal()
   
+retail_ts |>
+  filter(series_id == "RSAFSNA") |>
+  gg_season(sales) +
+  labs(
+    title = "Seasonal Pattern in NSA Retail Sales",
+    y = "Millions of dollars"
+  ) +
+  theme_minimal()
+
+retail_ts |>
+  filter(series_id =="RSAFS") |>
+  gg_season(sales)
+
+
+retail_ts |>
+  filter(series_id =="RSAFS") |>
+  gg_season(sales) +
+  labs(
+    title = "Seasonal Pattern in SA Retail Sales",
+    y = "Millions of dollars"
+  ) + 
+  theme_minimal()
+
