@@ -268,3 +268,14 @@ table(gas_cv_fc |>
   accuracy(can_gas, measures = list(MAE = MAE, RMSE = RMSE)) |>
   group_by(.model) |>
   summarize(across(c(MAE, RMSE), mean)))
+
+errs <- gas_cv_fc |>
+  as_tibble() |>
+  left_join(as_tibble(can_gas) |> select(Month, actual = Volume),
+            by = "Month") |>
+  mutate(e = actual - .mean) |>
+  select(Month, .model, e) |>
+  pivot_wider(names_from = .model, values_from = e) |>
+  na.omit()
+
+forecast::dm.test(errs$snaive, errs$tslm, h = 1, power = 1)
