@@ -186,3 +186,10 @@ retail_ts |>
   ) + 
   theme_minimal()
 
+can_gas |>
+  gg_season(log_volume) +
+  labs(
+    title = "Seasonal Pattern in Canadian Gas Production",
+    y = "Log Volume"
+  ) +
+  theme_minimal()
