@@ -88,8 +88,7 @@ can_gas |>
        title = "Canadian gas producution",
        x = "Months", y = "Volume", color = NULL) +
   theme_minimal()
-             
-    can_gas_series   
+     
     
 can_gas |>
   autoplot(Volume) +
