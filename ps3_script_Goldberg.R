@@ -239,3 +239,12 @@ can_gas_fit |>
   tidy() |>
   select(term, estimate, std.error, statistic, p.value) |>
   knitr::kable(digits = 3)
+
+can_gas_fit |>
+  augment() |>
+  ggplot(aes(x = Month)) +
+  geom_line(aes(y = log_volume, color = "Actual")) +
+  geom_line(aes(y = .fitted, color = "Fitted")) +
+  labs(title = "Linear Trend + Seasonal Dummies Fit: Canadian Gas Production",
+       y = "log(Volume)", color = NULL) +
+  theme_minimal()
