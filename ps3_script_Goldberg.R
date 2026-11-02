@@ -228,3 +228,14 @@ sa_compare |>
     x = NULL, y = "Difference (%)"
   ) +
   theme_minimal()
+
+can_gas_fit <- can_gas |>
+  model(TSLM(log_volume ~ trend() + season()))
+
+report(can_gas_fit)
+
+
+can_gas_fit |>
+  tidy() |>
+  select(term, estimate, std.error, statistic, p.value) |>
+  knitr::kable(digits = 3)
