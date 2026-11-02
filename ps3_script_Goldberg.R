@@ -279,3 +279,12 @@ errs <- gas_cv_fc |>
   na.omit()
 
 forecast::dm.test(errs$snaive, errs$tslm, h = 1, power = 1)
+
+gas_cv_fc <- can_gas |>
+  select(Month, Volume) |>
+  slide_tsibble(.size = 240, .step = 1) |>
+  model(snaive = SNAIVE(Volume),
+        tslm   = TSLM(log(Volume) ~ trend() + season())) |>
+  forecast(h = 1)
+gas_cv_fc |>
+  accuracy(can_gas, measures = list(MAE = MAE, RMSE = RMSE))
