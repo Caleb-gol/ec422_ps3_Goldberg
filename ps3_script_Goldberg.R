@@ -248,3 +248,9 @@ can_gas_fit |>
   labs(title = "Linear Trend + Seasonal Dummies Fit: Canadian Gas Production",
        y = "log(Volume)", color = NULL) +
   theme_minimal()
+
+can_gas_fit |> gg_tsresiduals()
+
+can_gas_fit |>
+  augment() |>
+  features(.innov, ljung_box, lag = 24)
